@@ -1,6 +1,6 @@
 
 FROM mcr.microsoft.com/dotnet/core/sdk:2.2 AS build-env
-ENV ASPNETCORE_ENVIRONMENT=Production
+ENV ASPNETCORE_ENVIRONMENT Production
 WORKDIR /app
 
 # Copy csproj and restore as distinct layers
@@ -43,5 +43,5 @@ COPY --from=build-env /app/out .
 # RUN mkdir -p /app/out/ClientApp/dist
 # #COPY --from=nodebuilder /usr/src/web-app/dist/ClientApp/. /app/out/ClientApp/dist/
 # #end react copy
-ENV ASPNETCORE_ENVIRONMENT=Production
+ENV ASPNETCORE_ENVIRONMENT Production
 CMD ["dotnet", "my-mvc-demo-react.dll"]
