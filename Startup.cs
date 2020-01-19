@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -32,9 +33,12 @@ namespace my_mvc_demo_react
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            Trace.WriteLine($"EnvironmentName = {env.EnvironmentName}");
+            Trace.WriteLine($"ASPNETCORE_ENVIRONMENT = {System.Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")}");
+
             if (env.IsDevelopment())
             {
-                //app.UseDeveloperExceptionPage();
+                app.UseDeveloperExceptionPage();
             }
             else
             {
@@ -53,16 +57,15 @@ namespace my_mvc_demo_react
                     name: "default",
                     template: "{controller}/{action=Index}/{id?}");
             });
-
-            app.UseSpa(spa =>
+            
+            if (env.IsDevelopment())
             {
-                spa.Options.SourcePath = "ClientApp";
-
-                if (env.IsDevelopment())
+                app.UseSpa(spa =>
                 {
-                    //spa.UseReactDevelopmentServer(npmScript: "start");
-                }
-            });
+                    spa.Options.SourcePath = "ClientApp";
+                    spa.UseReactDevelopmentServer(npmScript: "start");
+                }); 
+            }
         }
     }
 }
