@@ -13,7 +13,10 @@ namespace my_mvc_demo_react
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args)
         {
-            var port = Environment.GetEnvironmentVariable("PORT");
+            object port = Environment.GetEnvironmentVariable("PORT");
+            if(null == port) {
+                port = 8081;
+            }
 
             return WebHost.CreateDefaultBuilder(args)
                 .UseStartup<Startup>().UseUrls("http://*:" + port); ;
