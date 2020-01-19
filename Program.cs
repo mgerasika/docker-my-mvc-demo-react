@@ -19,7 +19,7 @@ namespace my_mvc_demo_react
             }
 
             return WebHost.CreateDefaultBuilder(args)
-                .UseStartup<Startup>().UseUrls("http://*:" + port); ;
+                .UseStartup<Startup>().UseUrls("http://*:" + port);
 
         }
 
